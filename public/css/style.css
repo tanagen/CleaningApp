@@ -1,0 +1,136 @@
+/* 共通設定 ================================ */
+li {
+    list-style:none;
+}
+
+.errors {
+  color: red;
+}
+
+a {
+  text-decoration: none;
+}
+
+main {
+  width: 100%;
+  text-align: center;
+}
+
+table {
+  margin:auto;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 70%;
+}
+
+table tr{
+  border-bottom: solid 1px #eee;
+}
+
+table th,table td{
+  text-align: center;
+  padding: 15px 0;
+}
+
+/* inputタグ type numberの時に表示される矢印ボタン(スピンボタン)を消す */
+input[type="number"]::-webkit-outer-spin-button, 
+input[type="number"]::-webkit-inner-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+} 
+
+
+/* header.ejs ================================ */
+header {
+  height: 50px;
+  width: 100%;
+  background-color: #88E7CE;
+  border-radius: 4px;
+}
+
+.header-list li > a {
+  float: left;
+  margin-right: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+  line-height: 50px;
+  padding:0 20px;
+  color: black;
+  
+}
+
+.header-list li > a:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+
+/* footer.ejs ================================ */
+footer {
+  height: 40px;
+  width: 100%;
+  margin-top: 80px;
+  text-align: center;
+  font-size: 14px;
+}
+
+
+/* top.ejs ================================ */
+.main-top {
+  text-align: center;
+}
+
+.new-menu {
+  margin: 20px 10px;
+}
+
+.list-menu {
+  margin: 20px 10px;
+}
+
+.btn {
+  padding:8px 24px;
+  color:white;
+  display:inline-block;
+  opacity:0.8;
+  border-radius: 4px;
+}
+
+.btn:hover {
+  opacity: 1;
+}
+
+.new {
+  padding:10px 30px;
+  background-color: #5dca88;
+  box-shadow: 0 5px #1a7940;
+}
+
+.new:active {
+  position: relative;
+  top: 5px;
+  box-shadow: none;
+}
+
+.list {
+  padding:10px 30px;
+  background-color: #a9a9a9;
+  box-shadow: 0 5px #808080;
+}
+
+.list:active {
+  position: relative;
+  top: 5px;
+  box-shadow: none;
+}
+
+.fa-solid {
+  margin-right: 5px;
+}
+
+.fa-regular {
+  margin-right: 5px;
+}
+
+.img-logo {
+  width:20%;
+  height:20%;
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>クリーニング編集受付</title>
+</head>
+
+<body>
+    <header>
+        <%- include('header'); %>
+    </header>
+    
+    
+    <main>
+        <div class="main-header">
+            <h1>クリーニング受付内容編集</h1>
+        </div>
+
+        <!-- 入力値のエラー表示 -->
+        <% if (errors.length > 0) { %>
+            <ul class="errors">
+                <% errors.forEach((error) => { %>
+                    <li><%= error %></li>
+                <% }) %>
+            </ul>
+        <% } %>  
+
+        <div class="reception-update-form-wrapper">
+            <form action="/reception-update/<%= id %>" method="post">
+                <label for="nameKanaList">氏名(カタカナ)</label>
+                    <div class="name-kana-select">
+                        <select name="nameKana" id="nameKanaList">
+                            <% customers.forEach((customer) => { %>
+                                <% if (customer.name_kana === locals.nameKana) { %>
+                                    <option value='<%= customer.name_kana %>' selected> <%= customer.name_kana %> </option>    
+                                <% } else { %>
+                                    <option value='<%= customer.name_kana %>'> <%= customer.name_kana %> </option>
+                                <% } %>
+                            <% }) %>
+                        </select>
+                    </div>
+    
+                <label for="cleaningItemList">クリーニングアイテム</label>
+                    <div class="cleaning-item-select">
+                        <select name="cleaningItem" id="cleaningItemList">
+                            <% cleaningItems.forEach((cleaningItem) => { %>
+                                <% if (cleaningItem.cleaning_item === locals.cleaningItem) { %>
+                                    <option value='<%= cleaningItem.cleaning_item %>' selected> <%= cleaningItem.cleaning_item %> </option>
+                               <%  } else { %>
+                                    <option value='<%= cleaningItem.cleaning_item %>'> <%= cleaningItem.cleaning_item %> </option>
+                                <% } %>
+                            <% }) %>
+                        </select>
+                    </div>
+    
+                <input class="button" type="submit" value="更新">
+            </form>
+        </div>
+
+    </main>
+
+
+    <footer>
+        <%- include('footer'); %>
+    </footer>
+
+
+</body>
+
+</html>

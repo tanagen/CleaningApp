@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>クリーニング一覧</title>
+</head>
+<body>
+    <header>
+        <%- include('header'); %>
+    </header>
+
+    <main>
+        <div class="main-header">
+            <h1>クリーニング受付表</h1>
+        </div>
+
+        <div class="cleaning-reception-table-wrapper">
+            <table>
+                <tr>
+                    <td>ID</td>
+                    <td>氏名(カナ)</td>
+                    <td>アイテム</td>
+                    <td>受付日</td>
+                    <td>仕上がり日</td>
+                </tr>
+
+                <% cleanings.forEach((cleaning) => { %>
+                    <tr>
+                        <td class="id-column"><%= cleaning.id %></td>
+                        <td class="name_kana-column"><%= cleaning.name_kana %></td>
+                        <td class="cleaning_item-column"><%= cleaning.cleaning_item %></td>
+                        
+                        <!-- 受付日をyyyymmddで表示するための処理 -->
+                        <% const receptionFullDate = new Date(cleaning.reception_date) %> 
+                        <% const receptionYear = receptionFullDate.getFullYear() %> 
+                        <% const receptionMonth = receptionFullDate.getMonth() + 1 %>
+                        <% const receptionDate = receptionFullDate.getDate() %>
+                        <% const receptionDayofweek = receptionFullDate.getDay() %>
+                        <% const receptionHour = receptionFullDate.getHours() %>
+                        <% const receptionMinute = receptionFullDate.getMinutes() %>
+                        <% const dayname = ['日','月','火','水','木','金','土'] %>
+                        <td class="reception_date-column"><%= `${receptionYear}/${receptionMonth}/${receptionDate}(${dayname[receptionDayofweek]}) ${receptionHour}:${receptionMinute}` %></td>
+
+                        <!-- 仕上がり日をyyyymmddで表示 -->
+                        <!-- finish_daysテーブルをselect *して配列-オブジェクトを取得し、cleaning_itemプロパティを検索条件としてcleaning.cleaning_itemに一致するテーブルを取得 -->
+                        <% const finishDayObject = finish_days.find((finish_day) => { %>
+                            <% return finish_day.cleaning_item === cleaning.cleaning_item; %>
+                        <% }); %>
+                        
+                        <% if (finishDayObject !== undefined) { %>
+                            <!-- 受付日に仕上がり日数を足す -->
+                            <% const finishFullDate = new Date(receptionFullDate.setDate(receptionDate + finishDayObject.finish_day + 1)) %>
+                            <% const finishYear = finishFullDate.getFullYear() %> 
+                            <% const finishMonth = finishFullDate.getMonth() + 1 %>
+                            <% const finishDate = finishFullDate.getDate() %>
+                            <% const finishDayofweek = finishFullDate.getDay() %>
+                            <% const finishHour = finishFullDate.getHours() %>
+                            <% const finishMinute = finishFullDate.getMinutes() %>
+                            <td class="finish_date-column"><%= `${finishYear}/${finishMonth}/${finishDate}(${dayname[finishDayofweek]})` %></td>   
+                        <% } if (finishDayObject === undefined) { %>
+                            <td class="finish_date-column">クリーニングアイテムのエラー</td>   
+                        <% } %>
+
+                        <td>
+                            <!-- 削除ボタン -->
+                            <!-- ルートパラメータの使用 -->
+                            <form action="/cleaning-delete/<%= cleaning.id%>" method="post">
+                                <input type="submit" value="削除">
+                            </form>
+                        </td>
+                        <td>
+                            <!-- 編集ボタン -->
+                            <a href="/reception-edit/<%= cleaning.id %>">編集</a>
+                        </td>
+
+                    </tr>
+                <% }) %> 
+
+            </table>
+        </div>
+
+    </main>
+
+    <footer>
+        <%- include('footer'); %>
+    </footer>
+
+</body>
+</html>
