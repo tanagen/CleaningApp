@@ -11,7 +11,7 @@ Progateで学んだ内容のアウトプットとして、ポートフォリオ1
 ## 技術内容
 + 言語: HTML/CSS/javascript
 + フレームワーク: Node.js v18.16.0
-+ DB: mySQL Ver 8.0.32
++ DB: MySQL Ver 8.0.32
 + バージョン管理: git version 2.39.2
 
 ## 実装した機能
