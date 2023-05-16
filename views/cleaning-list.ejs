@@ -25,6 +25,7 @@
                     <td>アイテム</td>
                     <td>受付日</td>
                     <td>仕上がり日</td>
+                    <td>受取連絡</td>
                 </tr>
 
                 <% cleanings.forEach((cleaning) => { %>
@@ -63,7 +64,16 @@
                         <% } if (finishDayObject === undefined) { %>
                             <td class="finish_date-column">クリーニングアイテムのエラー</td>   
                         <% } %>
-
+                        
+                        <!-- 受取連絡のメールリンクを埋め込み -->
+                        <% const customerObject = customers.find((customer) => { %>
+                            <% return customer.name_kana === cleaning.name_kana; %>
+                        <% }); %>
+                        <% const mailTo = customerObject.email %>
+                        <% const mailSubject = "クリーニング仕上がり連絡" %>
+                        <% const mailBody = `${customerObject.name_kanji}様%0D%0A%0D%0A〇〇クリーニングです。%0D%0A%0D%0Aお預かりした「${cleaning.cleaning_item}」が仕上がりましたのでご連絡差し上げました。%0D%0Aご来店をお待ちしております。%0D%0A%0D%0Aよろしくお願いいたします。` %>
+                        <td class="contact-column"><a href="mailto:<%= mailTo %>?subject=<%= mailSubject %>&amp;body=<%= mailBody%>">メール送信</a></td>
+                        
                         <td>
                             <!-- 削除ボタン -->
                             <!-- ルートパラメータの使用 -->

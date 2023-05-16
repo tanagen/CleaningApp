@@ -224,14 +224,20 @@ app.get('/cleaning-list', (req, res) => {
         'UPDATE receptions SET id=(@i := @i +1)',
         (error, results) => {
           // ここまで
+
           connection.query(
-            'SELECT * FROM receptions',
-            (error_receptions, results_receptions) => {
+            'SELECT * FROM customers',
+            (errorCustomers, resultCustomers) => {
               connection.query(
-                'SELECT * FROM finish_days',
-                (errorFinishDays, resultFinishDays) => {
-                  res.render('cleaning-list.ejs', {cleanings: results_receptions, finish_days: resultFinishDays})
-                }        
+                'SELECT * FROM receptions',
+                (errorReceptions, resultReceptions) => {
+                  connection.query(
+                    'SELECT * FROM finish_days',
+                    (errorFinishDays, resultFinishDays) => {
+                      res.render('cleaning-list.ejs', {customers:resultCustomers, cleanings: resultReceptions, finish_days: resultFinishDays})
+                    }        
+                  );
+                }
               );
             }
           );
