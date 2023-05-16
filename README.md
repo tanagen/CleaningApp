@@ -12,7 +12,7 @@ Progateで学んだ内容のアウトプットとして、ポートフォリオ1
 + 言語: HTML/CSS/javascript
 + フレームワーク: Node.js v18.16.0
 + DB: mySQL Ver 8.0.32
-+ バージョン管理: Git version 2.39.2
++ バージョン管理: git version 2.39.2
 
 ## 実装した機能
 + お客様登録、クリーニング受付、仕上がり日数追加
