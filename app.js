@@ -216,7 +216,7 @@ app.get('/customer-list', (req, res) => {
 });
 
 app.get('/cleaning-list', (req, res) => {
-  // IDを1から振り直す
+  // receotionsのIDを1から振り直す
   connection.query(
     'SET @i := 0;',
     (error, results) => {
