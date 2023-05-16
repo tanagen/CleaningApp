@@ -1,4 +1,4 @@
-# cleaning
+# CleaningApp
 Progateで学んだ内容のアウトプットとして、ポートフォリオ1作品目を作成  
 
 ## コンセプト 
