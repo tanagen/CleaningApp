@@ -1,7 +1,7 @@
 exports.getCustomerRegister = (req, res) => {
   res.render("customerRegister.ejs", { errors: [] });
 };
-
+//
 // exports.postCustomerRegister =
 //   ((req, res, next) => {
 //     const nameKanji = req.body.nameKanji;
