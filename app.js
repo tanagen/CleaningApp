@@ -25,7 +25,7 @@ connection.connect((err) => {
     console.log("sql_connection:success");
   }
 });
-
+//
 // urlごとにheaderを変更するためにpathNameを取得
 app.use((req, res, next) => {
   // const protocol = req.protocol; // http
