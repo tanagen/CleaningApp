@@ -1,22 +1,20 @@
 const express = require("express");
-const mysql = require("mysql");
-
-const app = express();
+const topRoutes = require("./routes/topRouter");
+const customerRoutes = require("./routes/customerRouter");
+// const topRoutes = require("./routes/topRouter.cjs");
 
 const config = require("./config");
+const sql = require("./controllers/sql");
+
+const app = express();
 
 // cssや画像ファイルを読み込めるようにするための定型文
 app.use(express.static("public"));
 // フォームの値を受け取るための定型文
 app.use(express.urlencoded({ extended: false }));
 
-// mysqlの接続情報
-const connection = mysql.createConnection({
-  host: config.host,
-  user: config.user,
-  password: config.password,
-  database: config.database,
-});
+// mysql接続
+const connection = sql.connection;
 
 // sql接続エラー時の表示
 connection.connect((err) => {
@@ -40,56 +38,55 @@ app.use((req, res, next) => {
   next();
 });
 
-// ここからルーティング処理
-app.get("/", (req, res) => {
-  res.render("top.ejs");
-});
+// topルーティング
+app.use("/", topRoutes);
+app.use("/register", customerRoutes);
 
-app.get("/register", (req, res) => {
-  res.render("register.ejs", { errors: [] });
-});
+// app.get("/register", (req, res) => {
+//   res.render("customerRegister.ejs", { errors: [] });
+// });
 
-app.post(
-  "/register",
-  // 入力値の空チェックのミドルウェア関数
-  (req, res, next) => {
-    const nameKanji = req.body.nameKanji;
-    const nameKana = req.body.nameKana;
-    const email = req.body.email;
-    const errors = [];
+// app.post(
+//   "/register",
+//   // 入力値の空チェックのミドルウェア関数
+//   (req, res, next) => {
+//     const nameKanji = req.body.nameKanji;
+//     const nameKana = req.body.nameKana;
+//     const email = req.body.email;
+//     const errors = [];
 
-    if (nameKanji === "") {
-      errors.push("氏名(漢字)が空です");
-    }
-    if (nameKana === "") {
-      errors.push("氏名(カタカナ)が空です");
-    }
-    if (email === "") {
-      errors.push("メールアドレスが空です");
-    }
+//     if (nameKanji === "") {
+//       errors.push("氏名(漢字)が空です");
+//     }
+//     if (nameKana === "") {
+//       errors.push("氏名(カタカナ)が空です");
+//     }
+//     if (email === "") {
+//       errors.push("メールアドレスが空です");
+//     }
 
-    if (errors.length > 0) {
-      res.render("register.ejs", { errors: errors });
-    } else {
-      next();
-    }
-  },
+//     if (errors.length > 0) {
+//       res.render("customerRegister.ejs", { errors: errors });
+//     } else {
+//       next();
+//     }
+//   },
 
-  // お客様登録のミドルウェア関数
-  (req, res) => {
-    const nameKanji = req.body.nameKanji;
-    const nameKana = req.body.nameKana;
-    const email = req.body.email;
+//   // お客様登録のミドルウェア関数
+//   (req, res) => {
+//     const nameKanji = req.body.nameKanji;
+//     const nameKana = req.body.nameKana;
+//     const email = req.body.email;
 
-    connection.query(
-      "INSERT INTO customers(name_kanji, name_kana, email) VALUES(?, ?, ?)",
-      [nameKanji, nameKana, email],
-      (error, results) => {
-        res.redirect("/customer-list");
-      }
-    );
-  }
-);
+//     connection.query(
+//       "INSERT INTO customers(name_kanji, name_kana, email) VALUES(?, ?, ?)",
+//       [nameKanji, nameKana, email],
+//       (error, results) => {
+//         res.redirect("/customer-list");
+//       }
+//     );
+//   }
+// );
 
 app.get("/reception", (req, res) => {
   connection.query(
@@ -98,7 +95,7 @@ app.get("/reception", (req, res) => {
       connection.query(
         "SELECT * FROM finish_days",
         (errorFinishDays, resultFinishDays) => {
-          res.render("reception.ejs", {
+          res.render("cleaningReception.ejs", {
             customers: results_customers,
             cleaningItems: resultFinishDays,
             errors: [],
@@ -131,7 +128,7 @@ app.post(
           connection.query(
             "SELECT * FROM finish_days",
             (errorFinishDays, resultFinishDays) => {
-              res.render("reception.ejs", {
+              res.render("cleaningReception.ejs", {
                 customers: resultCustomers,
                 cleaningItems: resultFinishDays,
                 errors: errors,
@@ -161,7 +158,7 @@ app.post(
 );
 
 app.get("/add", (req, res) => {
-  res.render("add.ejs", { errors: [] });
+  res.render("addCleaningItem.ejs", { errors: [] });
 });
 
 app.post(
@@ -180,7 +177,7 @@ app.post(
     }
 
     if (errors.length > 0) {
-      res.render("add.ejs", { errors: errors });
+      res.render("addCleaningItem.ejs", { errors: errors });
     } else {
       next();
     }
@@ -209,7 +206,7 @@ app.get("/customer-list", (req, res) => {
       (error, results) => {
         // ここまで
         connection.query("SELECT * FROM customers", (error, results) => {
-          res.render("customer-list.ejs", { customers: results });
+          res.render("customerList.ejs", { customers: results });
         });
       }
     );
@@ -233,7 +230,7 @@ app.get("/cleaning-list", (req, res) => {
                 connection.query(
                   "SELECT * FROM finish_days",
                   (errorFinishDays, resultFinishDays) => {
-                    res.render("cleaning-list.ejs", {
+                    res.render("cleaningList.ejs", {
                       customers: resultCustomers,
                       cleanings: resultReceptions,
                       finish_days: resultFinishDays,
@@ -257,7 +254,7 @@ app.get("/finish-day-list", (req, res) => {
       (error, results) => {
         // ここまで
         connection.query("SELECT * FROM finish_days", (error, results) => {
-          res.render("finish-day-list.ejs", { finishDays: results });
+          res.render("finishDayList.ejs", { finishDays: results });
         });
       }
     );
@@ -307,7 +304,10 @@ app.get("/register-edit/:id", (req, res) => {
     "SELECT * FROM customers WHERE id=?",
     [id],
     (error, results) => {
-      res.render("register-edit.ejs", { customer: results[0], errors: [] });
+      res.render("edit-customerRegister.ejs", {
+        customer: results[0],
+        errors: [],
+      });
     }
   );
 });
@@ -328,7 +328,7 @@ app.get("/reception-edit/:id", (req, res) => {
           connection.query(
             "SELECT * FROM finish_days",
             (errorFinishDays, resultFinishDays) => {
-              res.render("reception-edit.ejs", {
+              res.render("edit-cleaningReception.ejs", {
                 customers: resultCustomers,
                 cleaningItems: resultFinishDays,
                 id: id,
@@ -349,7 +349,10 @@ app.get("/add-edit/:id", (req, res) => {
     "SELECT * FROM finish_days WHERE id=?",
     [id],
     (error, results) => {
-      res.render("add-edit.ejs", { finishDay: results[0], errors: [] });
+      res.render("edit-addCleaningItem.ejs", {
+        finishDay: results[0],
+        errors: [],
+      });
     }
   );
 });
@@ -387,7 +390,7 @@ app.post(
         "SELECT * FROM customers WHERE id=?",
         [postedId],
         (error, results) => {
-          res.render("register-edit.ejs", {
+          res.render("edit-customerRegister.ejs", {
             customer: postedCustomer,
             errors: errors,
           });
@@ -440,7 +443,7 @@ app.post(
           connection.query(
             "SELECT * FROM finish_days",
             (errorFinishDays, resultFinishDays) => {
-              res.render("reception-edit.ejs", {
+              res.render("edit-cleaningReception.ejs", {
                 customers: resultCustomers,
                 cleaningItems: resultFinishDays,
                 errors: errors,
@@ -497,7 +500,7 @@ app.post(
         "SELECT * FROM finish_days WHERE id=?",
         [postedId],
         (error, results) => {
-          res.render("add-edit.ejs", {
+          res.render("edit-addCleaningItem.ejs", {
             finishDay: postedContent,
             errors: errors,
           });
