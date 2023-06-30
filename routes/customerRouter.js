@@ -1,16 +1,22 @@
 const express = require("express");
 const router = express.Router();
 const {
-  getCustomerRegister,
+  renderCustomerRegisterPage,
+  checkPostedCustomerRegister,
   postCustomerRegister,
+  getCustomerList,
+  delteCustomerInfo,
+  renderCustomerEditPage,
+  checkUpdatedCustomerInfo,
+  UpdateCustomerInfo,
 } = require("../controllers/customer");
 
 // customer関連
-router.get("/register", getCustomerRegister);
-// router.post("/register", postCustomerRegister);
-// router.get("/customer-list");
-// router.post("/customer-delete/:id");
-// router.get("/register-edit/:id");
-// router.post("/register-update/:id");
+router.get("/", renderCustomerRegisterPage);
+router.post("/", checkPostedCustomerRegister, postCustomerRegister);
+router.get("/list", getCustomerList);
+router.post("/:id", delteCustomerInfo);
+router.get("/edit/:id", renderCustomerEditPage);
+router.post("/update/:id", checkUpdatedCustomerInfo, UpdateCustomerInfo);
 
 module.exports = router;

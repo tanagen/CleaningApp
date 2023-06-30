@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/style.css" />
-    <title>お客様情報登録</title>
+    <title>お客様情報編集</title>
   </head>
 
   <body>
@@ -13,7 +13,7 @@
 
     <main>
       <div class="main-header">
-        <h1>お客様情報登録</h1>
+        <h1>お客様情報編集</h1>
       </div>
 
       <!-- 入力値のエラー表示 -->
@@ -25,16 +25,31 @@
       </ul>
       <% } %>
 
-      <div class="register-form-wrapper">
-        <form action="/customer" method="post">
+      <div class="customer-update-form-wrapper">
+        <form action="/customer/update/<%= customer.id %>" method="post">
           <p>氏名(漢字)</p>
-          <input class="name-kanji" name="nameKanji" type="text" />
+          <input
+            class="name-kanji"
+            name="nameKanji"
+            type="text"
+            value="<%= customer.name_kanji %>"
+          />
           <p>氏名(カタカナ)</p>
-          <input class="name-kana" name="nameKana" type="text" />
+          <input
+            class="name-kana"
+            name="nameKana"
+            type="text"
+            value="<%= customer.name_kana %>"
+          />
           <p>メールアドレス</p>
-          <input class="email" name="email" type="text" />
+          <input
+            class="email"
+            name="email"
+            type="text"
+            value="<%= customer.email %>"
+          />
           <p></p>
-          <input class="button" type="submit" value="登録" />
+          <input class="button" type="submit" value="更新" />
         </form>
       </div>
     </main>
