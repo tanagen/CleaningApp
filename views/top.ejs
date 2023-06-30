@@ -1,46 +1,54 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
     <title>クリーニング受付Webアプリ</title>
-</head>
+  </head>
 
-<body>
-    
-
+  <body>
     <main class="main-top">
-        <div class="main-header">
-            <h1>クリーニング受付Webアプリ</h1>
-        </div>
-        
+      <div class="main-header">
+        <h1>クリーニング受付Webアプリ</h1>
+      </div>
 
-        <div class="shop-logo">
-            <img src="img/cleaning_shop.png" alt="ロゴ" class="img-logo">
+      <div class="shop-logo">
+        <img src="img/cleaning_shop.png" alt="ロゴ" class="img-logo" />
+      </div>
+
+      <div class="menu">
+        <div class="new-menu">
+          <a href="/customer" class="btn new"
+            ><i class="fa-regular fa-address-card"></i>お客様登録</a
+          >
+          <a href="/reception" class="btn new"
+            ><i class="fa-solid fa-pencil"></i>クリーニング受付</a
+          >
+          <a href="/add" class="btn new"
+            ><i class="fa-solid fa-shirt"></i>クリーニングアイテム追加</a
+          >
         </div>
-        
-        <div class="menu">
-            <div class="new-menu">
-                <a href="/register" class="btn new"><i class="fa-regular fa-address-card"></i>お客様登録</a>
-                <a href="/reception" class="btn new"><i class="fa-solid fa-pencil"></i>クリーニング受付</a>
-                <a href="/add" class="btn new"><i class="fa-solid fa-shirt"></i>クリーニングアイテム追加</a>
-            </div >
-                
-            <div class="list-menu">
-                <a href="/customer-list" class="btn list"><i class="fa-solid fa-list"></i>お客様一覧</a>
-                <a href="/cleaning-list" class="btn list"><i class="fa-solid fa-list"></i>クリーニング一覧</a>
-                <a href="/finish-day-list" class="btn list"><i class="fa-solid fa-list"></i>仕上がり日数確認</a>
-            </div>  
-        
-            
+
+        <div class="list-menu">
+          <a href="/customer/list" class="btn list"
+            ><i class="fa-solid fa-list"></i>お客様一覧</a
+          >
+          <a href="/cleaning-list" class="btn list"
+            ><i class="fa-solid fa-list"></i>クリーニング一覧</a
+          >
+          <a href="/finish-day-list" class="btn list"
+            ><i class="fa-solid fa-list"></i>仕上がり日数確認</a
+          >
         </div>
+      </div>
     </main>
 
     <%- include('footer'); %>
-    
-</body>
-
+  </body>
 </html>

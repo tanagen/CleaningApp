@@ -14,17 +14,18 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
 // mysql接続
-const connection = sql.connection;
+// const connection = sql.connection;
 
-// sql接続エラー時の表示
-connection.connect((err) => {
-  if (err) {
-    console.log("error connecting: " + err.stack);
-    return;
-  } else {
-    console.log("sql_connection:success");
-  }
-});
+// sql接続エラー確認
+sql.connect;
+// connection.connect((err) => {
+//   if (err) {
+//     console.log("error connecting: " + err.stack);
+//     return;
+//   } else {
+//     console.log("sql_connection:success");
+//   }
+// });
 //
 // urlごとにheaderを変更するためにpathNameを取得
 app.use((req, res, next) => {
@@ -40,7 +41,8 @@ app.use((req, res, next) => {
 
 // topルーティング
 app.use("/", topRoutes);
-app.use("/register", customerRoutes);
+// お客様情報のルーティング
+app.use("/customer", customerRoutes);
 
 // app.get("/register", (req, res) => {
 //   res.render("customerRegister.ejs", { errors: [] });
@@ -198,20 +200,20 @@ app.post(
   }
 );
 
-app.get("/customer-list", (req, res) => {
-  // IDを1から振り直す
-  connection.query("SET @i := 0;", (error, results) => {
-    connection.query(
-      "UPDATE customers SET id=(@i := @i +1)",
-      (error, results) => {
-        // ここまで
-        connection.query("SELECT * FROM customers", (error, results) => {
-          res.render("customerList.ejs", { customers: results });
-        });
-      }
-    );
-  });
-});
+// app.get("/customer-list", (req, res) => {
+//   // IDを1から振り直す
+//   connection.query("SET @i := 0;", (error, results) => {
+//     connection.query(
+//       "UPDATE customers SET id=(@i := @i +1)",
+//       (error, results) => {
+//         // ここまで
+//         connection.query("SELECT * FROM customers", (error, results) => {
+//           res.render("customerList.ejs", { customers: results });
+//         });
+//       }
+//     );
+//   });
+// });
 
 app.get("/cleaning-list", (req, res) => {
   // receotionsのIDを1から振り直す
@@ -262,15 +264,15 @@ app.get("/finish-day-list", (req, res) => {
 });
 
 // 削除ルーティング
-app.post("/customer-delete/:id", (req, res) => {
-  connection.query(
-    "DELETE FROM customers WHERE id = ?",
-    [req.params.id],
-    (error, results) => {
-      res.redirect("/customer-list");
-    }
-  );
-});
+// app.post("/customer-delete/:id", (req, res) => {
+//   connection.query(
+//     "DELETE FROM customers WHERE id = ?",
+//     [req.params.id],
+//     (error, results) => {
+//       res.redirect("/customer-list");
+//     }
+//   );
+// });
 
 app.post("/cleaning-delete/:id", (req, res) => {
   const id = req.params.id;
@@ -297,20 +299,20 @@ app.post("/finish-day-delete/:id", (req, res) => {
 });
 
 //　編集画面ルーティング
-app.get("/register-edit/:id", (req, res) => {
-  const id = req.params.id;
+// app.get("/customer-edit/:id", (req, res) => {
+//   const id = req.params.id;
 
-  connection.query(
-    "SELECT * FROM customers WHERE id=?",
-    [id],
-    (error, results) => {
-      res.render("edit-customerRegister.ejs", {
-        customer: results[0],
-        errors: [],
-      });
-    }
-  );
-});
+//   connection.query(
+//     "SELECT * FROM customers WHERE id=?",
+//     [id],
+//     (error, results) => {
+//       res.render("edit-customerRegister.ejs", {
+//         customer: results[0],
+//         errors: [],
+//       });
+//     }
+//   );
+// });
 
 app.get("/reception-edit/:id", (req, res) => {
   const id = req.params.id;
@@ -358,65 +360,65 @@ app.get("/add-edit/:id", (req, res) => {
 });
 
 // 更新ルーティング
-app.post(
-  "/register-update/:id",
+// app.post(
+//   "/customer-update/:id",
 
-  // 入力値の空チェックのミドルウェア関数
-  (req, res, next) => {
-    const postedId = req.params.id;
-    const postedNameKanji = req.body.nameKanji;
-    const postedNameKana = req.body.nameKana;
-    const postedEmail = req.body.email;
-    const postedCustomer = {
-      id: postedId,
-      name_kanji: postedNameKanji,
-      name_kana: postedNameKana,
-      email: postedEmail,
-    };
-    const errors = [];
+//   // 入力値の空チェックのミドルウェア関数
+//   (req, res, next) => {
+//     const postedId = req.params.id;
+//     const postedNameKanji = req.body.nameKanji;
+//     const postedNameKana = req.body.nameKana;
+//     const postedEmail = req.body.email;
+//     const postedCustomer = {
+//       id: postedId,
+//       name_kanji: postedNameKanji,
+//       name_kana: postedNameKana,
+//       email: postedEmail,
+//     };
+//     const errors = [];
 
-    if (postedNameKanji === "") {
-      errors.push("氏名(漢字)が空です");
-    }
-    if (postedNameKana === "") {
-      errors.push("氏名(カタカナ)が空です");
-    }
-    if (postedEmail === "") {
-      errors.push("メールアドレスが空です");
-    }
+//     if (postedNameKanji === "") {
+//       errors.push("氏名(漢字)が空です");
+//     }
+//     if (postedNameKana === "") {
+//       errors.push("氏名(カタカナ)が空です");
+//     }
+//     if (postedEmail === "") {
+//       errors.push("メールアドレスが空です");
+//     }
 
-    if (errors.length > 0) {
-      connection.query(
-        "SELECT * FROM customers WHERE id=?",
-        [postedId],
-        (error, results) => {
-          res.render("edit-customerRegister.ejs", {
-            customer: postedCustomer,
-            errors: errors,
-          });
-        }
-      );
-    } else {
-      next();
-    }
-  },
+//     if (errors.length > 0) {
+//       connection.query(
+//         "SELECT * FROM customers WHERE id=?",
+//         [postedId],
+//         (error, results) => {
+//           res.render("edit-customerRegister.ejs", {
+//             customer: postedCustomer,
+//             errors: errors,
+//           });
+//         }
+//       );
+//     } else {
+//       next();
+//     }
+//   },
 
-  // 更新のミドルウェア関数
-  (req, res) => {
-    const postedId = req.params.id;
-    const postedNameKanji = req.body.nameKanji;
-    const postedNameKana = req.body.nameKana;
-    const postedEmail = req.body.email;
+//   // 更新のミドルウェア関数
+//   (req, res) => {
+//     const postedId = req.params.id;
+//     const postedNameKanji = req.body.nameKanji;
+//     const postedNameKana = req.body.nameKana;
+//     const postedEmail = req.body.email;
 
-    connection.query(
-      "UPDATE customers SET name_kanji=?, name_kana=?, email=? WHERE id=?",
-      [postedNameKanji, postedNameKana, postedEmail, postedId],
-      (error, results) => {
-        res.redirect("/customer-list");
-      }
-    );
-  }
-);
+//     connection.query(
+//       "UPDATE customers SET name_kanji=?, name_kana=?, email=? WHERE id=?",
+//       [postedNameKanji, postedNameKana, postedEmail, postedId],
+//       (error, results) => {
+//         res.redirect("/customer-list");
+//       }
+//     );
+//   }
+// );
 
 app.post(
   "/reception-update/:id",
