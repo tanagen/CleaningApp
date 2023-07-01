@@ -6,6 +6,8 @@ const renderCustomerRegisterPage = (req, res) => {
   res.render("customerRegister.ejs", { errors: [] });
 };
 
+
+// お客様登録時の入力値チェック
 const checkPostedCustomerRegister = (req, res, next) => {
   const nameKanji = req.body.nameKanji;
   const nameKana = req.body.nameKana;
@@ -154,3 +156,4 @@ module.exports = {
   checkUpdatedCustomerInfo,
   updateCustomerInfo,
 };
+
