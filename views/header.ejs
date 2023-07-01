@@ -1,38 +1,95 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+  </head>
 
-<header>
+  <header>
     <div class="header-list">
-        <ul>
-            <li><a href="/">トップ</a></li>
-            <% if (locals.pathName === "/customer-list") { %>
-                <li><a href="/register"><i class="fa-regular fa-address-card"></i>お客様登録</a></li>
-                <li><a href="/reception"><i class="fa-solid fa-pencil"></i>クリーニング受付</a></li>
-                <li><a href="/cleaning-list"><i class="fa-solid fa-list"></i>クリーニング一覧</a></li>
-                <li><a href="/finish-day-list"><i class="fa-solid fa-list"></i>仕上がり日数</a></li>
-            <% } else if (locals.pathName === "/cleaning-list") { %>
-                <li><a href="/register"><i class="fa-regular fa-address-card"></i>お客様登録</a></li>
-                <li><a href="/reception"><i class="fa-solid fa-pencil"></i>クリーニング受付</a></li>
-                <li><a href="/customer-list"><i class="fa-solid fa-list"></i>お客様一覧</a></li>
-                <li><a href="/finish-day-list"><i class="fa-solid fa-list"></i>仕上がり日数</a></li>
-            <% } else if (locals.pathName === "/finish-day-list") { %>
-                <li><a href="/register"><i class="fa-regular fa-address-card"></i>お客様登録</a></li>
-                <li><a href="/reception"><i class="fa-solid fa-pencil"></i>クリーニング受付</a></li>
-                <li><a href="/customer-list"><i class="fa-solid fa-list"></i>お客様一覧</a></li>
-                <li><a href="/cleaning-list"><i class="fa-solid fa-list"></i>クリーニング一覧</a></li>
-                <% } else { %>
-                <li><a href="/customer-list"><i class="fa-solid fa-list"></i>お客様一覧</a></li>
-                <li><a href="/cleaning-list"><i class="fa-solid fa-list"></i>クリーニング一覧</a></li>
-                <li><a href="/finish-day-list"><i class="fa-solid fa-list"></i>仕上がり日数</a></li> 
-            <% } %>
-        </ul>
+      <ul>
+        <li><a href="/">トップ</a></li>
+        <% if (locals.pathName === "/customer/list") { %>
+        <li>
+          <a href="/customer"
+            ><i class="fa-regular fa-address-card"></i>お客様登録</a
+          >
+        </li>
+        <li>
+          <a href="/cleaning"
+            ><i class="fa-solid fa-pencil"></i>クリーニング受付</a
+          >
+        </li>
+        <li>
+          <a href="/cleaning/list"
+            ><i class="fa-solid fa-list"></i>クリーニング一覧</a
+          >
+        </li>
+        <li>
+          <a href="/item/list"><i class="fa-solid fa-list"></i>仕上がり日数</a>
+        </li>
+        <% } else if (locals.pathName === "/cleaning/list") { %>
+        <li>
+          <a href="/customer"
+            ><i class="fa-regular fa-address-card"></i>お客様登録</a
+          >
+        </li>
+        <li>
+          <a href="/cleaning"
+            ><i class="fa-solid fa-pencil"></i>クリーニング受付</a
+          >
+        </li>
+        <li>
+          <a href="/customer/list"
+            ><i class="fa-solid fa-list"></i>お客様一覧</a
+          >
+        </li>
+        <li>
+          <a href="/item/list"><i class="fa-solid fa-list"></i>仕上がり日数</a>
+        </li>
+        <% } else if (locals.pathName === "/item/list") { %>
+        <li>
+          <a href="/customer"
+            ><i class="fa-regular fa-address-card"></i>お客様登録</a
+          >
+        </li>
+        <li>
+          <a href="/cleaning"
+            ><i class="fa-solid fa-pencil"></i>クリーニング受付</a
+          >
+        </li>
+        <li>
+          <a href="/customer/list"
+            ><i class="fa-solid fa-list"></i>お客様一覧</a
+          >
+        </li>
+        <li>
+          <a href="/cleaning/list"
+            ><i class="fa-solid fa-list"></i>クリーニング一覧</a
+          >
+        </li>
+        <% } else { %>
+        <li>
+          <a href="/customer/list"
+            ><i class="fa-solid fa-list"></i>お客様一覧</a
+          >
+        </li>
+        <li>
+          <a href="/cleaning/list"
+            ><i class="fa-solid fa-list"></i>クリーニング一覧</a
+          >
+        </li>
+        <li>
+          <a href="/item/list"><i class="fa-solid fa-list"></i>仕上がり日数</a>
+        </li>
+        <% } %>
+      </ul>
     </div>
-
-</header>
+  </header>
+</html>
