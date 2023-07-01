@@ -8,15 +8,15 @@ const {
   delteCustomerInfo,
   renderCustomerEditPage,
   checkUpdatedCustomerInfo,
-  UpdateCustomerInfo,
+  updateCustomerInfo,
 } = require("../controllers/customer");
 
-// customer関連
+// customer
 router.get("/", renderCustomerRegisterPage);
 router.post("/", checkPostedCustomerRegister, postCustomerRegister);
 router.get("/list", getCustomerList);
 router.post("/:id", delteCustomerInfo);
 router.get("/edit/:id", renderCustomerEditPage);
-router.post("/update/:id", checkUpdatedCustomerInfo, UpdateCustomerInfo);
+router.post("/update/:id", checkUpdatedCustomerInfo, updateCustomerInfo);
 
 module.exports = router;

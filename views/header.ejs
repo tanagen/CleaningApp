@@ -15,35 +15,33 @@
     <div class="header-list">
       <ul>
         <li><a href="/">トップ</a></li>
-        <% if (locals.pathName === "/customer-list") { %>
+        <% if (locals.pathName === "/customer/list") { %>
         <li>
           <a href="/customer"
             ><i class="fa-regular fa-address-card"></i>お客様登録</a
           >
         </li>
         <li>
-          <a href="/reception"
+          <a href="/cleaning"
             ><i class="fa-solid fa-pencil"></i>クリーニング受付</a
           >
         </li>
         <li>
-          <a href="/cleaning-list"
+          <a href="/cleaning/list"
             ><i class="fa-solid fa-list"></i>クリーニング一覧</a
           >
         </li>
         <li>
-          <a href="/finish-day-list"
-            ><i class="fa-solid fa-list"></i>仕上がり日数</a
-          >
+          <a href="/item/list"><i class="fa-solid fa-list"></i>仕上がり日数</a>
         </li>
-        <% } else if (locals.pathName === "/cleaning-list") { %>
+        <% } else if (locals.pathName === "/cleaning/list") { %>
         <li>
           <a href="/customer"
             ><i class="fa-regular fa-address-card"></i>お客様登録</a
           >
         </li>
         <li>
-          <a href="/reception"
+          <a href="/cleaning"
             ><i class="fa-solid fa-pencil"></i>クリーニング受付</a
           >
         </li>
@@ -53,18 +51,16 @@
           >
         </li>
         <li>
-          <a href="/finish-day-list"
-            ><i class="fa-solid fa-list"></i>仕上がり日数</a
-          >
+          <a href="/item/list"><i class="fa-solid fa-list"></i>仕上がり日数</a>
         </li>
-        <% } else if (locals.pathName === "/finish-day-list") { %>
+        <% } else if (locals.pathName === "/item/list") { %>
         <li>
           <a href="/customer"
             ><i class="fa-regular fa-address-card"></i>お客様登録</a
           >
         </li>
         <li>
-          <a href="/reception"
+          <a href="/cleaning"
             ><i class="fa-solid fa-pencil"></i>クリーニング受付</a
           >
         </li>
@@ -74,7 +70,7 @@
           >
         </li>
         <li>
-          <a href="/cleaning-list"
+          <a href="/cleaning/list"
             ><i class="fa-solid fa-list"></i>クリーニング一覧</a
           >
         </li>
@@ -85,14 +81,12 @@
           >
         </li>
         <li>
-          <a href="/cleaning-list"
+          <a href="/cleaning/list"
             ><i class="fa-solid fa-list"></i>クリーニング一覧</a
           >
         </li>
         <li>
-          <a href="/finish-day-list"
-            ><i class="fa-solid fa-list"></i>仕上がり日数</a
-          >
+          <a href="/item/list"><i class="fa-solid fa-list"></i>仕上がり日数</a>
         </li>
         <% } %>
       </ul>

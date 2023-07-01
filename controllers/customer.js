@@ -6,7 +6,6 @@ const renderCustomerRegisterPage = (req, res) => {
   res.render("customerRegister.ejs", { errors: [] });
 };
 
-// お客様登録時の入力値チェック
 const checkPostedCustomerRegister = (req, res, next) => {
   const nameKanji = req.body.nameKanji;
   const nameKana = req.body.nameKana;
@@ -30,7 +29,7 @@ const checkPostedCustomerRegister = (req, res, next) => {
   }
 };
 
-// 入力されたお客様情報のポスト
+// お客様登録のポスト
 const postCustomerRegister = (req, res) => {
   console.log("call post");
   const nameKanji = req.body.nameKanji;
@@ -73,7 +72,7 @@ const delteCustomerInfo = (req, res) => {
   );
 };
 
-// お客様情報の編集
+// お客様情報の編集画面表示
 const renderCustomerEditPage = (req, res) => {
   const id = req.params.id;
 
@@ -89,7 +88,7 @@ const renderCustomerEditPage = (req, res) => {
   );
 };
 
-// お客様情報更新時の入力値チェック
+// お客様情報更新時の入力値の空チェック
 const checkUpdatedCustomerInfo = (req, res, next) => {
   const postedId = req.params.id;
   const postedNameKanji = req.body.nameKanji;
@@ -130,7 +129,7 @@ const checkUpdatedCustomerInfo = (req, res, next) => {
 };
 
 // お客様情報の更新
-const UpdateCustomerInfo = (req, res) => {
+const updateCustomerInfo = (req, res) => {
   const postedId = req.params.id;
   const postedNameKanji = req.body.nameKanji;
   const postedNameKana = req.body.nameKana;
@@ -153,5 +152,5 @@ module.exports = {
   delteCustomerInfo,
   renderCustomerEditPage,
   checkUpdatedCustomerInfo,
-  UpdateCustomerInfo,
+  updateCustomerInfo,
 };

@@ -1,11 +1,22 @@
+const express = require("express");
 const router = express.Router();
+const {
+  renderItemAddPage,
+  checkPostedItemAdd,
+  postItemAdd,
+  getItemList,
+  deleteItemInfo,
+  renderItemEditPage,
+  checkUpdatedItemInfo,
+  updateItemInfo,
+} = require("../controllers/item");
 
 // item関連
-router.get("/add");
-router.post("/add");
-router.get("/finish-day-list");
-router.post("/finish-day-delete/:id");
-router.get("/add-edit/:id");
-router.post("/add-update/:id");
+router.get("/", renderItemAddPage);
+router.post("/", checkPostedItemAdd, postItemAdd);
+router.get("/list", getItemList);
+router.post("/:id", deleteItemInfo);
+router.get("/edit/:id", renderItemEditPage);
+router.post("/update/:id", checkUpdatedItemInfo, updateItemInfo);
 
-export default router;
+module.exports = router;
