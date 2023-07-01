@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>お客様情報登録</title>
+  </head>
+
+  <body>
+    <header><%- include('header'); %></header>
+
+    <main>
+      <div class="main-header">
+        <h1>お客様情報登録</h1>
+      </div>
+
+      <!-- 入力値のエラー表示 -->
+      <% if (errors.length > 0) { %>
+      <ul class="errors">
+        <% errors.forEach((error) => { %>
+        <li><%= error %></li>
+        <% }) %>
+      </ul>
+      <% } %>
+
+      <div class="register-form-wrapper">
+        <form action="/customer" method="post">
+          <p>氏名(漢字)</p>
+          <input class="name-kanji" name="nameKanji" type="text" />
+          <p>氏名(カタカナ)</p>
+          <input class="name-kana" name="nameKana" type="text" />
+          <p>メールアドレス</p>
+          <input class="email" name="email" type="text" />
+          <p></p>
+          <input class="button" type="submit" value="登録" />
+        </form>
+      </div>
+    </main>
+
+    <footer><%- include('footer'); %></footer>
+  </body>
+</html>
